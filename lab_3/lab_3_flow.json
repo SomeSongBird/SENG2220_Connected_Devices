@@ -1,0 +1,338 @@
+[
+    {
+        "id": "c35c8c76dd631a23",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d799a869396f2041",
+        "type": "http in",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "url": "http://10.43.2.28:1880/on",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 100,
+        "wires": [
+            [
+                "0a9dc979c318e0c0"
+            ]
+        ]
+    },
+    {
+        "id": "b903508b82e4fd79",
+        "type": "http in",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "url": "http://10.43.2.28:1880/off",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 380,
+        "wires": [
+            [
+                "c109ac09896c28d6"
+            ]
+        ]
+    },
+    {
+        "id": "8671f22b0158ae61",
+        "type": "http in",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "url": "http://10.43.2.28:1880/blink",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 600,
+        "wires": [
+            [
+                "a483fb2446ca2fa4"
+            ]
+        ]
+    },
+    {
+        "id": "1ff048b32cb1c096",
+        "type": "http response",
+        "z": "c35c8c76dd631a23",
+        "name": "HTTP Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1120,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "f0ab7dd3f51aaaa2",
+        "type": "rpi-gpio out",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "pin": "21",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 840,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "0a9dc979c318e0c0",
+        "type": "function",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "func": "global.set(\"function\",\"on\");\nmsg.payload = 1;\nglobal.set(\"state\",1);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 100,
+        "wires": [
+            [
+                "f0ab7dd3f51aaaa2",
+                "1ff048b32cb1c096"
+            ]
+        ]
+    },
+    {
+        "id": "c109ac09896c28d6",
+        "type": "function",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "func": "global.set(\"function\",\"off\");\nglobal.set(\"state\",0);\nmsg.payload = 0;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 380,
+        "wires": [
+            [
+                "1ff048b32cb1c096",
+                "f0ab7dd3f51aaaa2"
+            ]
+        ]
+    },
+    {
+        "id": "029c7b7edb52b3f4",
+        "type": "function",
+        "z": "c35c8c76dd631a23",
+        "name": "blinker",
+        "func": "if(global.get(\"function\")!=\"blink\"){\n    return;\n}\nvar state = (global.get(\"state\")+1)%2;\nglobal.set(\"state\",state);\nmsg.payload = state;\nreturn [msg,msg];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 580,
+        "wires": [
+            [
+                "f0ab7dd3f51aaaa2",
+                "0413d402308bbc0e"
+            ],
+            [
+                "eea96a70a72e7b4c"
+            ]
+        ]
+    },
+    {
+        "id": "eea96a70a72e7b4c",
+        "type": "delay",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 680,
+        "y": 640,
+        "wires": [
+            [
+                "029c7b7edb52b3f4"
+            ]
+        ]
+    },
+    {
+        "id": "a483fb2446ca2fa4",
+        "type": "function",
+        "z": "c35c8c76dd631a23",
+        "name": "state check",
+        "func": "global.set(\"function\",\"blink\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 600,
+        "wires": [
+            [
+                "029c7b7edb52b3f4",
+                "1ff048b32cb1c096"
+            ]
+        ]
+    },
+    {
+        "id": "bf9026e677aec2f4",
+        "type": "inject",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "0a9dc979c318e0c0"
+            ]
+        ]
+    },
+    {
+        "id": "560bbcf922fb70b8",
+        "type": "inject",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 420,
+        "wires": [
+            [
+                "c109ac09896c28d6"
+            ]
+        ]
+    },
+    {
+        "id": "e72c684b39f68296",
+        "type": "inject",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 660,
+        "wires": [
+            [
+                "a483fb2446ca2fa4"
+            ]
+        ]
+    },
+    {
+        "id": "0413d402308bbc0e",
+        "type": "debug",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "5b476a3f682b51c2",
+        "type": "comment",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "info": "set the status of the program using global variables.",
+        "x": 460,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "d926a00d174698f0",
+        "type": "comment",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "info": "set the status of the program using global variables.",
+        "x": 440,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "2753a985beb0cbd1",
+        "type": "comment",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "info": "set the status of the program using global variables.",
+        "x": 440,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "8c82899179b1d292",
+        "type": "comment",
+        "z": "c35c8c76dd631a23",
+        "name": "",
+        "info": "blinking function to automatically toggle the LED on and off.\nUses global variables to see the status of the LED and check if it should continue running.",
+        "x": 700,
+        "y": 520,
+        "wires": []
+    }
+]
