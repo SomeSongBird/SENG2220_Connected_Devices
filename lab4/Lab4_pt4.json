@@ -1,0 +1,202 @@
+[
+    {
+        "id": "a59f278d8e538f1b",
+        "type": "tab",
+        "label": "Lab4_pt4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "93cb6cb6969d0214",
+        "type": "http response",
+        "z": "a59f278d8e538f1b",
+        "name": "Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1220,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "a0cca00f7cd1d71a",
+        "type": "http in",
+        "z": "a59f278d8e538f1b",
+        "name": "",
+        "url": "index",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 280,
+        "y": 300,
+        "wires": [
+            [
+                "adbc051f995aac67"
+            ]
+        ]
+    },
+    {
+        "id": "adbc051f995aac67",
+        "type": "file in",
+        "z": "a59f278d8e538f1b",
+        "name": "",
+        "filename": "/home/pi/pyiot/chapter03/templates/index_api_client.html",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 570,
+        "y": 300,
+        "wires": [
+            [
+                "93cb6cb6969d0214"
+            ]
+        ]
+    },
+    {
+        "id": "2b70955754e18af8",
+        "type": "comment",
+        "z": "a59f278d8e538f1b",
+        "name": "Load Webpage",
+        "info": "",
+        "x": 300,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "b6d1b5eeb46c863c",
+        "type": "http in",
+        "z": "a59f278d8e538f1b",
+        "name": "Load jQuery",
+        "url": "/static/jquery.min.js",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 290,
+        "y": 380,
+        "wires": [
+            [
+                "b011b0214936ba5d"
+            ]
+        ]
+    },
+    {
+        "id": "17d00ff95724318e",
+        "type": "comment",
+        "z": "a59f278d8e538f1b",
+        "name": "load jQuery",
+        "info": "",
+        "x": 290,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "b011b0214936ba5d",
+        "type": "file in",
+        "z": "a59f278d8e538f1b",
+        "name": "",
+        "filename": "/home/pi/pyiot/chapter03/static/jquery.min.js",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 550,
+        "y": 380,
+        "wires": [
+            [
+                "93cb6cb6969d0214"
+            ]
+        ]
+    },
+    {
+        "id": "60f1f7070dc81fc1",
+        "type": "http in",
+        "z": "a59f278d8e538f1b",
+        "name": "POST",
+        "url": "led",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 290,
+        "y": 100,
+        "wires": [
+            [
+                "93cb6cb6969d0214",
+                "53f16c4abb468ce9"
+            ]
+        ]
+    },
+    {
+        "id": "a646eabdecb6d95c",
+        "type": "debug",
+        "z": "a59f278d8e538f1b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "2b238145f6718efb",
+        "type": "rpi-gpio out",
+        "z": "a59f278d8e538f1b",
+        "name": "",
+        "pin": "21",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "pwm",
+        "bcm": true,
+        "x": 660,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "53f16c4abb468ce9",
+        "type": "function",
+        "z": "a59f278d8e538f1b",
+        "name": "",
+        "func": "msg.payload = msg.payload.level\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 200,
+        "wires": [
+            [
+                "a646eabdecb6d95c",
+                "2b238145f6718efb"
+            ]
+        ]
+    },
+    {
+        "id": "24ea7b2747e85277",
+        "type": "comment",
+        "z": "a59f278d8e538f1b",
+        "name": "Get slider changes",
+        "info": "",
+        "x": 330,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "da78d4eeecdced55",
+        "type": "comment",
+        "z": "a59f278d8e538f1b",
+        "name": "Change the LED's light level",
+        "info": "",
+        "x": 580,
+        "y": 140,
+        "wires": []
+    }
+]

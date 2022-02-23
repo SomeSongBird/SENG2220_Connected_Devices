@@ -1,0 +1,193 @@
+[
+    {
+        "id": "6b8fd4b7a6f144c6",
+        "type": "tab",
+        "label": "Lab4_pt2",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "162ec66eb0c7d926",
+        "type": "inject",
+        "z": "6b8fd4b7a6f144c6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 170,
+        "y": 160,
+        "wires": [
+            [
+                "7873f3083b161fd3"
+            ]
+        ]
+    },
+    {
+        "id": "7d46940f8ae027a0",
+        "type": "inject",
+        "z": "6b8fd4b7a6f144c6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"level\":20}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 300,
+        "wires": [
+            [
+                "f19e7035456ae915"
+            ]
+        ]
+    },
+    {
+        "id": "7873f3083b161fd3",
+        "type": "http request",
+        "z": "6b8fd4b7a6f144c6",
+        "name": "GET REQUEST",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5000/led",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "68d2e712299b737f"
+            ]
+        ]
+    },
+    {
+        "id": "f19e7035456ae915",
+        "type": "http request",
+        "z": "6b8fd4b7a6f144c6",
+        "name": "POST REQUEST",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:5000/led",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 390,
+        "y": 320,
+        "wires": [
+            [
+                "bf5071d86fcbcc97"
+            ]
+        ]
+    },
+    {
+        "id": "bf5071d86fcbcc97",
+        "type": "debug",
+        "z": "6b8fd4b7a6f144c6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "68d2e712299b737f",
+        "type": "debug",
+        "z": "6b8fd4b7a6f144c6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "8f319524b20f6d5b",
+        "type": "inject",
+        "z": "6b8fd4b7a6f144c6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"level\":80}",
+        "payloadType": "json",
+        "x": 180,
+        "y": 340,
+        "wires": [
+            [
+                "f19e7035456ae915"
+            ]
+        ]
+    },
+    {
+        "id": "15b4b1884f9fd277",
+        "type": "comment",
+        "z": "6b8fd4b7a6f144c6",
+        "name": "Get request for the current level of the LED",
+        "info": "",
+        "x": 460,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "7b8a1bf69ed67244",
+        "type": "comment",
+        "z": "6b8fd4b7a6f144c6",
+        "name": "Post request for either level of 20 or 80",
+        "info": "",
+        "x": 470,
+        "y": 260,
+        "wires": []
+    }
+]
