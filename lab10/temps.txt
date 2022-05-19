@@ -1,0 +1,5 @@
+"user": "Chris", "sensor": "1", "temperature": 71.93948271915768
+"user": "Chris", "sensor": "1", "temperature": 71.93948271915768
+"user": "Chris", "sensor": "1", "temperature": 71.93948271915768
+"user": "Chris", "sensor": "1", "temperature": 71.35939574273289
+"user": "Chris", "sensor": "1", "temperature": 71.93948271915768
